@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <nav v-if="user">
       <div>
-          <p>Hey there ...</p>
-          <p class="email">Currently logged in as ...</p>
+          <p>Hey there {{user.displayName}}</p>
+          <p class="email">Currently logged in as {{user.email}}</p>
       </div>
       <button @click="handleClick">Logout</button>
   </nav>
@@ -10,6 +10,7 @@
 
 <script>
 import { error, logout } from '../composables/useLogout'
+import { user } from '../composables/getUser'
 
 export default {
   setup() {
@@ -21,7 +22,7 @@ export default {
       }
     }
 
-    return {handleClick}
+    return {handleClick, user}
   }
 }
 </script>
