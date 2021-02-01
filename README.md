@@ -1,2 +1,24 @@
-# vue-live-chat-room
-A live chat room with Firebase. Based on the "The Net Ninja" Udemy course.
+# Vue Live Chatroom
+This project is based on the second project developed by [The Net Ninja (Shaun Pelling)](https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg) on his excelent [Udemy course](https://www.udemy.com/course/build-web-apps-with-vuejs-firebase).
+
+## Project Overview
+
+### Home Screen
+
+## Views, Components & Composables Overview
+
+## Views, Components & Composables Details
+
+### Views
+
+### Components
+
+### Composables
+
+## File Structure
+
+## Dependencies
+
+## Data
+
+## Running the Project Locally
