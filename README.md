@@ -3,7 +3,11 @@ This project is based on the second project developed by [The Net Ninja (Shaun P
 
 ## Project Overview
 
-### Home Screen
+### Login Screen
+
+### Signup Screen
+
+### Chatroom
 
 ## Views, Components & Composables Overview
 
