@@ -1,4 +1,4 @@
-import { ref } from "vue"
+import { ref, watchEffect } from "vue"
 import { projectFirestore } from "../firebase/config"
 
 const getCollection = (collection) => {
@@ -9,7 +9,7 @@ const getCollection = (collection) => {
     .collection(collection)
     .orderBy("createdAt")
 
-  orderedCollection.onSnapshot(
+  const unsub = orderedCollection.onSnapshot(
     (snap) => {
       let results = []
 
@@ -27,6 +27,10 @@ const getCollection = (collection) => {
     }
   )
 
+  watchEffect(onInvalidate => {
+    onInvalidate(() => unsub)
+  })
+  
   return { error, documents }
 }
 
