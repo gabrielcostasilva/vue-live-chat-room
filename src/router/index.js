@@ -7,7 +7,17 @@ const routes = [
   {
     path: '/',
     name: 'Welcome',
-    component: Welcome
+    component: Welcome,
+    beforeEnter: (to, from, next) => {
+      let user = projectAuth.currentUser
+
+      if (user) {
+        next({ name: 'Chatroom'})
+
+      } else {
+        next()
+      }
+    }
   },
   {
     path: '/chatroom',
