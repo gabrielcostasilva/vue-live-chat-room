@@ -5,11 +5,19 @@ This project is based on the second project developed by [The Net Ninja (Shaun P
 
 ### Login Screen
 
+<img src="./pics/LoginScreen.png" />
+
 ### Signup Screen
+
+<img src="./pics/SignupScreen.png" />
 
 ### Chatroom
 
+<img src="./pics/Chatroom.png" />
+
 ## Views, Components & Composables Overview
+
+<img src="./pics/ComponentTree.png" />
 
 ## Views, Components & Composables Details
 
@@ -20,6 +28,8 @@ This project is based on the second project developed by [The Net Ninja (Shaun P
 ### Composables
 
 ## File Structure
+
+<img src="./pics/FileStructure.png" />
 
 ## Dependencies
 
