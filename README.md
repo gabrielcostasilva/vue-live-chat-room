@@ -27,6 +27,8 @@ This project is based on the second project developed by [The Net Ninja (Shaun P
 
 ### Composables
 
+## Communication Flow
+
 ## File Structure
 
 <img src="./pics/FileStructure.png" />
