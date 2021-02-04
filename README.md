@@ -48,34 +48,114 @@ This project extensively uses two of Vue 3 new features: the composition API and
 
 - `SignupForm` is responsible for receiving the user signup data, and passing them to the `useSignup` composable. Like the `LoginForm`, this component also exposes an error object and fires an event (`signup`) when there is a signup error and a successfull signup, respectivelly.
 
-- `Navbar`
+- `Navbar` is responsible for showing the currently logged user name and enabling the user logout. Both functionalities are imported from the `getUser` and `useLogout` composables, respectively.
 
-- `ChatWindow`
+- `ChatWindow` is responsible for rendering exchanged messages. This component receives a message list from the `getCollection` composable. It uses the `date-fns` library to format the timestamp. The component also uses a simple strategy to auto-scroll the message list.
 
-- `NewChatForm`
+- `NewChatForm` is responsible for submitting the message of the the currently logged user. As previous components, this also uses composables. Whereas the `getUser` provides the user information, the `useCollection` saves the current message into Firebase.
 
 ### Composables
 
-- `useLogin`
+- `useLogin` calls Firebase auth API with email and password provided in the `LoginForm`.
 
-- `useSignup`
+- `useSignup` calls Firebase auth API with email and password provided in the `SignupForm`. If the signup succeeds, it also uses the API to saving the user name.
 
-- `useLogout`
+- `useLogout` calls Firebase auth API method responsible for loggin the user out. The request is sent by the `Navbar` component.
 
-- `getCollection`
+- `getCollection` calls the Firestore API to retrieve messages. The collection name is passed as argument to improve reusability. The message list object is ordered and a snapshot is created in order to use real time. 
 
-- `useCollection`
+- `useCollection` calls the Firestore API to save a message. Both the collection and the message object values are passed as argument for reusability reasons.
 
-- `getUser`
+- `getUser` calls Firebase auth API to retrieving the currently logged user.
 
 ## Communication Flow
+
+### The signup process
+
+<img src="./pics/SignupProcess.png" />
+
+```
+title Signup process
+
+User->Welcome: Requests signup
+Welcome->*SignupForm: Loads the signup form
+SignupForm->*useSignup: Sends user data
+useSignup->SignupForm: Returns object representing user data or error
+SignupForm->Welcome: Emits signup event
+Welcome->*router: Requests redirect to the chatroom
+router->Chatroom: Redirects user 
+```
+
+### The login process
+
+<img src="./pics/LoginProcess.png" />
+
+```
+title Login process
+
+User->Welcome: Opens the main page
+Welcome->*LoginForm: Loads the login form
+User->LoginForm: Inputs the user data
+LoginForm->*useLogin: Sends user data
+useLogin->LoginForm: Returns object representing user data or error
+LoginForm->Welcome: Emits signup event
+Welcome->*router: Requests redirect to the chatroom
+router->Chatroom: Redirects user
+```
+
+### The messsage exchange process
+
+<img src="./pics/MessageExchangeProcess.png" />
+
+```
+title Message exchange process
+
+User->Chatroom: Opens the main page
+Chatroom->*Navbar: Loads the Navbar component
+Navbar->*getUser: Requests currently logged user
+getUser->Navbar: Returns and shows user data
+Chatroom->*ChatWindow: Loads the ChatWindow component
+ChatWindow->*getCollection: Retrieves message list
+getCollection->ChatWindow: Returns and shows message list
+Chatroom->*NewChatForm: Loads the NewChatForm component
+User->NewChatForm: Writes new message and hit <Enter>
+NewChatForm->getUser: Requests currently logged user
+getUser->NewChatForm: Returns user data
+NewChatForm->*useCollection: Submits message and user data
+```
 
 ## File Structure
 
 <img src="./pics/FileStructure.png" />
 
+The Figure shows all files that were created/updated. Notice that some files were automatically created by the _Vue CLI_. 
+
 ## Dependencies
 
+The project has two main dependencies. First, the project uses Firebase auth and datastore service for authenticating and saving/retrieving data, respectively. Second, the `data-fns` library is used to format the date showed on the messages.
+
 ## Data
+Firestore database is used in this project.
 
 ## Running the Project Locally
+Before running the project, ensure that you have NPM installed. You also need to set the Firebase app, auth and data storage configuration. Notice that the `firebase/config.js` needs the Firebase configuration in order to work. Check out the course if you need help ;)
+
+1. Clone the project locally
+
+```
+git clone https://github.com/gabrielcostasilva/vue-live-chat-room.git
+```
+
+2. In the project folder, install dependencies
+
+```
+npm install
+```
+
+3. In the project folder, start the project.
+
+```
+npm run serve
+```
+
+4. Access the app with your browser at `http://localhost:8080`
