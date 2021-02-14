@@ -18,22 +18,19 @@
 <script>
 import SignupForm from '../components/SignupForm'
 import LoginForm from '../components/LoginForm'
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 export default {
   components: { SignupForm, LoginForm},
-  
-  setup() {
-    const showLogin = ref(true)
-    const router = useRouter()
-
-    const enterChat = () => {
-      router.push({ name: 'Chatroom' })
+  data() {
+    return {
+      showLogin: true
     }
-
-    return { showLogin, enterChat }
-  }
+  },
+  methods: {
+    enterChat() {
+      this.$router.push({ name: 'Chatroom' })
+    }
+  },
 }
 </script>
 

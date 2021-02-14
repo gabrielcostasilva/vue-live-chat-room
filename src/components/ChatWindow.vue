@@ -13,28 +13,33 @@
 
 <script>
 import getCollection from "../composables/getCollection";
-import { formatDistanceToNow } from 'date-fns'
-import { computed, onUpdated, ref } from 'vue';
+import { formatDistanceToNow } from "date-fns";
 
 export default {
-  setup() {
-    const { error, documents } = getCollection('messages');
-
-    const formattedDocuments = computed(() => {
-      if (documents.value) {
-        return documents.value.map(doc => {
-          let time = formatDistanceToNow(doc.createdAt.toDate())
-          return {...doc, createdAt: time}
-        })
+  data() {
+    return {
+      error: "",
+      documents: [],
+      messages: "",
+    };
+  },
+  created() {
+    const { error, documents } = getCollection("messages");
+    this.error = error;
+    this.documents = documents;
+  },
+  computed: {
+    formattedDocuments: function () {
+      if (this.documents) {
+        return this.documents.map((doc) => {
+          let time = formatDistanceToNow(doc.createdAt.toDate());
+          return { ...doc, createdAt: time };
+        });
       }
-    })
-
-    const messages = ref(null)
-    onUpdated(() => {
-      messages.value.scrollTop = messages.value.scrolHeight
-    })
-
-    return { error, formattedDocuments, messages };
+    },
+  },
+  updated() {
+    this.$refs.messages.scrollTop = this.$refs.messages.scrolHeight;
   },
 };
 </script>

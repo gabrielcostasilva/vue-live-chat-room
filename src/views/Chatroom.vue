@@ -7,27 +7,30 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar'
-import { user } from '../composables/getUser'
-import { useRouter } from 'vue-router'
-import { watch } from 'vue'
-import NewChatForm from '../components/NewChatForm'
-import ChatWindow from '../components/ChatWindow'
+import Navbar from "../components/Navbar";
+import { user } from "../composables/getUser";
+import NewChatForm from "../components/NewChatForm";
+import ChatWindow from "../components/ChatWindow";
 
 export default {
   components: { Navbar, NewChatForm, ChatWindow },
-  setup() {
-    const router = useRouter()
-
-    watch(user, () => {
-      if (!user.value) {
-        router.push({ name: 'Welcome' })
+  data() {
+    return {
+      user: {}
+    }
+  },
+  created() {
+    this.user = user
+  },
+  watch: {
+    user: function () {
+      if (!this.user) {
+        this.$router.push({ name: "Welcome" });
       }
-    })
-  }
-}
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>
