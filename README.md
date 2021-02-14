@@ -1,6 +1,8 @@
 # Vue Live Chatroom
 This project is based on the second project developed by [The Net Ninja (Shaun Pelling)](https://www.youtube.com/channel/UCW5YeuERMmlnqo4oq8vwUpg) on his excelent [Udemy course](https://www.udemy.com/course/build-web-apps-with-vuejs-firebase).
 
+This branch reengineers the original branch to adopt the Options API instead of the Composition API. I noticed the Options API makes the code more verbose, although everything becomes clearer. Notice that composables can be used with both APIs. 
+
 ## Project Overview
 
 ### Login Screen
